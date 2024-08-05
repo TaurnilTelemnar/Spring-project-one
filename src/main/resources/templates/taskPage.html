@@ -1,0 +1,110 @@
+<!doctype html>
+<html th:lang="${#locale}" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments::head}">
+    <title>Title for replace</title>
+</head>
+<body>
+<div class="container">
+    <span th:insert="~{fragments::menu}"></span>
+    <form method="post" class="form-horizontal">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend th:text="#{task_form.title}">Task page</legend>
+            <!-- Description input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="description"
+                       th:text="#{task_form.description}">Description</label>
+                <div class="col-md-4">
+                    <input id="description" name="description" th:value="${task!=null?task.description:''}"
+                           value="task.description"
+                           type="text" placeholder="" class="form-control input-md" required="">
+                </div>
+            </div>
+
+            <!-- Status input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="status" th:text="#{task_form.status}">Status</label>
+                <div class="col-md-4">
+                    <select id="status" name="status" class="form-control input-md" required="">
+                        <option
+                                th:each="status : ${statuses}"
+                                th:value="${status}"
+                                th:text="${status}"
+                                th:selected="${
+                                (task != null && task.status == status) ||
+                                (task == null && status == status.IN_PROGRESS)
+                                }"
+                        >Status text
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+
+            <input type="hidden" th:value="${task!=null?task.id:''}">
+
+            <!-- Button (Double) -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="operation" th:text="#{task_form.operation}">Operation</label>
+                <div id="operation" class="col-md-8" th:switch="${task}">
+
+                        <span th:case="${null}">
+                            <button name="createTask" class="btn btn-danger"
+                                    th:text="#{task_page.create}">Create</button>
+                        </span>
+                    <span th:case="*">
+                            <button name="updateTask" class="btn btn-success"
+                                    th:text="#{task_page.update}">Update</button>
+                            <button name="deleteTask" class="btn btn-danger"
+                                    th:text="#{task_page.delete}">Delete</button>
+                        </span>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+
+    <h2 th:text="#{task_page.list_tasks}">List tasks</h2>
+    <div th:each="task : ${tasks}">
+        <div>
+            <span
+                    th:text="${task.id}">ID
+            </span>
+            <span
+                    th:text="${task.description}">Description
+            </span>
+            <span
+                    th:text="${task.status}">Status
+            </span>
+            <a th:href="@{|/tasks/${task.id}/|}" th:text="#{task_page.edit_link}">Edit</a>
+        </div>
+
+    </div>
+
+    <h2>
+                <button th:each="pageNumber : ${page_numbers}">
+                    <a th:href="@{/tasks/(page=${pageNumber}, limit=10)}"  th:text="${pageNumber}" th:classappend="${pageNumber == current_page ? 'active_page' : ''}"></a>
+                </button>
+
+<!--        <button>-->
+<!--            <a th:href="@{/tasks/(page=0, limit=10)}" th:text="1"/>-->
+<!--        </button>-->
+<!--        <button>-->
+<!--            <a th:href="@{/tasks/(page=1, limit=10)}" th:text="2"/>-->
+<!--        </button>-->
+
+    </h2>
+
+
+
+    <p><br><a href="/tasks/" th:text="#{task_page.reset_link}">Reset</a></p>
+
+    <div th:insert="~{fragments::footer}">
+        Footer
+    </div>
+</div>
+
+
+</body>
+</html>
