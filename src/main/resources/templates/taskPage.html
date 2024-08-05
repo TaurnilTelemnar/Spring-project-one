@@ -9,9 +9,8 @@
     <form method="post" class="form-horizontal">
         <fieldset>
 
-            <!-- Form Name -->
             <legend th:text="#{task_form.title}">Task page</legend>
-            <!-- Description input-->
+
             <div class="form-group">
                 <label class="col-md-4 control-label" for="description"
                        th:text="#{task_form.description}">Description</label>
@@ -22,7 +21,6 @@
                 </div>
             </div>
 
-            <!-- Status input-->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="status" th:text="#{task_form.status}">Status</label>
                 <div class="col-md-4">
@@ -44,7 +42,6 @@
 
             <input type="hidden" th:value="${task!=null?task.id:''}">
 
-            <!-- Button (Double) -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="operation" th:text="#{task_form.operation}">Operation</label>
                 <div id="operation" class="col-md-8" th:switch="${task}">
@@ -65,7 +62,7 @@
     </form>
 
 
-    <h2 th:text="#{task_page.list_tasks}">List tasks</h2>
+    <h4 th:text="#{task_page.list_tasks}">List tasks</h4>
     <div th:each="task : ${tasks}">
         <div>
             <span
@@ -87,16 +84,7 @@
                     <a th:href="@{/tasks/(page=${pageNumber}, limit=10)}"  th:text="${pageNumber}" th:classappend="${pageNumber == current_page ? 'active_page' : ''}"></a>
                 </button>
 
-<!--        <button>-->
-<!--            <a th:href="@{/tasks/(page=0, limit=10)}" th:text="1"/>-->
-<!--        </button>-->
-<!--        <button>-->
-<!--            <a th:href="@{/tasks/(page=1, limit=10)}" th:text="2"/>-->
-<!--        </button>-->
-
     </h2>
-
-
 
     <p><br><a href="/tasks/" th:text="#{task_page.reset_link}">Reset</a></p>
 
