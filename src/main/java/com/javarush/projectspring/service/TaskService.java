@@ -4,7 +4,6 @@ import com.javarush.projectspring.dao.TaskDAO;
 import com.javarush.projectspring.domain.Task;
 import com.javarush.projectspring.dto.TaskTo;
 import lombok.AllArgsConstructor;
-import org.hibernate.SessionFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

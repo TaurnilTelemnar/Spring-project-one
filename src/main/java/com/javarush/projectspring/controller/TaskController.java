@@ -72,8 +72,6 @@ public class TaskController {
 
     @PostMapping("/{id}/")
     public String updateOrDeleteTask(TaskTo taskTo,
-
-                                     @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                      @RequestParam(required = false, name = "deleteTask") String deleteTask) {
 
         if (Objects.nonNull(deleteTask)) {
